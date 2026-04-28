@@ -63,3 +63,9 @@ def get_nav_sheet(scheme_code: str):
             return f"{item['scheme_name']},{item['nav']},{item['date'].strip()}"
 
     return "Not Found"
+
+
+# Run server:
+# -> uvicorn main:app --reload
+# Open in browser:
+# -> http://127.0.0.1:8000/mf/119063
