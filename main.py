@@ -6,8 +6,17 @@ app = FastAPI()
 
 NAV_URL = "https://www.amfiindia.com/spages/NAVAll.txt"
 
-@lru_cache(maxsize=1)
+import time
+
+cache_data = None
+cache_time = 0
+
 def load_nav_data():
+    global cache_data, cache_time
+
+    if time.time() - cache_time < 3600:  # 1 hour cache
+        return cache_data
+
     res = requests.get(NAV_URL)
     lines = res.text.split("\n")
 
@@ -21,6 +30,10 @@ def load_nav_data():
                 "nav": parts[4],
                 "date": parts[5]
             })
+
+    cache_data = data
+    cache_time = time.time()
+
     return data
 
 
