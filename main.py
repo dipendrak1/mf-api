@@ -51,3 +51,15 @@ def get_nav(scheme_code: str):
             return item
 
     return {"error": "Scheme not found"}
+
+from fastapi.responses import PlainTextResponse
+
+@app.get("/mf/{scheme_code}/sheet", response_class=PlainTextResponse)
+def get_nav_sheet(scheme_code: str):
+    data = load_nav_data()
+
+    for item in data:
+        if item["scheme_code"] == scheme_code:
+            return f"{item['scheme_name']},{item['nav']},{item['date'].strip()}"
+
+    return "Not Found"
