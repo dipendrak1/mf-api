@@ -85,7 +85,7 @@ def load_nav_data():
     global cache_data, cache_time
 
     # Return cached data for 1 hour
-    if cache_data is not None and time.time() - cache_time < 3600:
+    if cache_data is not None and time.time() - cache_time < 900:
         return cache_data
 
     headers = {
